@@ -5,9 +5,9 @@
 }
 
 .calculator-box {
-  background-color: #0c8330;
-  width: 500px;
-  height: 650px;
+  background-color: #05a034;
+  width: 450px;
+  height: 680px;
   position: absolute;
   top: 5%;
   left: 50%;
@@ -17,11 +17,11 @@
 
 .display {
   width: 95%;
-  height: 100px;
+  height: 120px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(186, 239, 194);
-  margin: 12px 2.5%;
+  background-color: rgb(232, 239, 233);
+  margin: 12px 12px;
   border-radius: 5px;
 }
 
@@ -39,20 +39,22 @@
 
 .number-grid {
   width: 95%;
-  height: 514px;
+  height: 524px;
   background-color: rgb(209, 235, 164);
-  margin: 12px 2.5%;
+  margin: 0 12px;
   display: grid;
+  gap: -5px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   border-radius: 5px;
 }
 
 .number-grid > div {
-  background-color: rgba(87, 190, 90, 0.8);
+  background-color: rgba(49, 244, 59, 0.6);
   border: 1px solid rgba(0, 0, 0, 0.8);
   text-align: center;
   margin: 10px;
   border-radius: 2px;
+  box-shadow: 3px 3px 2px rgb(56, 101, 54);
 }
 
 .number-grid > div:not(.button-equal) {
