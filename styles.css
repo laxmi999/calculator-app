@@ -5,12 +5,46 @@
   font-weight: 400;
 }
 
+.modes {
+  position: fixed;
+  top: 2%;
+  left: 50%;
+  transform:translate(-50%, 0);
+}
+
+.mode-title {
+  display: inline-block;
+}
+
+.circle {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+.def {
+  background-color: #999999;
+}
+
+.pink {
+  background-color: #faa5c4;
+}
+
+.green {
+  background-color: #6fca56;
+}
+
+.blue {
+  background-color: #435bf7;
+}
+
 .calculator-box {
-  background-color: #fbd4f8;
-  border: 1px solid #fb8fb7;
+  background-color: #b5f18f;
+  border: 2px solid #20a802;
   width: 350px;
   height: 500px;
-  position: absolute;
+  position: fixed;
   top: 10%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -25,8 +59,8 @@
   height: 20%;
   display: flex;
   flex-direction: column;
-  background-color: #fffcf2;
-  border: 1px solid #fb8fb7;
+  background-color: #f0fbdb;
+  border: 1px solid #20a802;
   margin: 4% 0;
   border-radius: 5px;
 }
@@ -54,8 +88,8 @@
 }
 
 .number-grid > div {
-  background-color: #faa5c4;
-  border: 2px solid #fb8fb7;
+  background-color: #6fca56;
+  border: 1px solid #20a802;
   text-align: center;
   border-radius: 10px;
 }
