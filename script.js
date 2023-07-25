@@ -8,41 +8,85 @@ console.log("Screen width: " + screenWidth);
 console.log("Screen height: " + screenHeight);
 
 // Assigning variables to elements
-const boxColor = document.querySelector(".calculator-box");
-const displayColor = document.querySelector(".display");
-const buttonColor = document.querySelectorAll(".basic-buttons");
-const buttonEqual = document.querySelector(".button-equal");
+const maroon = document.querySelector(".maroon");
+const chocolate = document.querySelector(".chocolate");
+const orange = document.querySelector(".orange");
+const dark = document.querySelector(".dark");
+
+const allCircles = document.querySelectorAll(".circle");
+
+const calculatorBox = document.querySelector(".calculator-box");
+const calculatorDisplay = document.querySelector(".display");
+const basicButton = document.querySelectorAll(".basic-buttons");
+const equalButton = document.querySelector(".button-equal");
 
 // Color changing functions
-const pinkColor = function () {
-  boxColor.style.backgroundColor = "#fbd4f8";
-  boxColor.style.borderColor = "#fb8fb7";
+const maroonColor = function () {
+  allCircles.forEach((circle) => circle.classList.remove("active"));
+  maroon.classList.add("active");
 
-  displayColor.style.backgroundColor = "#fffcf2";
-  displayColor.style.borderColor = "#fb8fb7";
+  calculatorBox.style.backgroundColor = "#ffb8b1";
+  calculatorBox.style.borderColor = "#993441";
 
-  buttonColor.forEach((button) => (button.style.backgroundColor = "#faa5c4"));
-  buttonColor.forEach((button) => (button.style.borderColor = "#fb8fb7"));
+  calculatorDisplay.style.borderColor = "#993441";
 
-  buttonEqual.style.backgroundColor = "#faa5c4";
-  buttonEqual.style.borderColor = "#fb8fb7";
+  basicButton.forEach((button) => (button.style.backgroundColor = "#993441"));
+  basicButton.forEach((button) => (button.style.borderColor = "#993441"));
+
+  equalButton.style.backgroundColor = "#993441";
+  equalButton.style.borderColor = "#993441";
 };
 
-const defaultColor = function () {
-  boxColor.style.backgroundColor = "#bbbbbb";
-  boxColor.style.borderColor = "#555555";
+const chocolateColor = function () {
+  allCircles.forEach((circle) => circle.classList.remove("active"));
+  chocolate.classList.add("active");
 
-  displayColor.style.backgroundColor = "#f2f2f2";
-  displayColor.style.borderColor = "#555555";
+  calculatorBox.style.backgroundColor = "#ebc999";
+  calculatorBox.style.borderColor = "#4d3227";
 
-  buttonColor.forEach((button) => (button.style.backgroundColor = "#888888"));
-  buttonColor.forEach((button) => (button.style.borderColor = "#555555"));
+  calculatorDisplay.style.borderColor = "#4d3227";
 
-  buttonEqual.style.backgroundColor = "#888888";
-  buttonEqual.style.borderColor = "#555555";
+  basicButton.forEach((button) => (button.style.backgroundColor = "#4d3227"));
+  basicButton.forEach((button) => (button.style.borderColor = "#4d3227"));
+
+  equalButton.style.backgroundColor = "#4d3227";
+  equalButton.style.borderColor = "#4d3227";
 };
 
+const darkColor = function () {
+  allCircles.forEach((circle) => circle.classList.remove("active"));
+  dark.classList.add("active");
+
+  calculatorBox.style.backgroundColor = "#ccc7bf";
+  calculatorBox.style.borderColor = "#2b2d42";
+
+  calculatorDisplay.style.borderColor = "#2b2d42";
+
+  basicButton.forEach((button) => (button.style.backgroundColor = "#2b2d42"));
+  basicButton.forEach((button) => (button.style.borderColor = "#2b2d42"));
+
+  equalButton.style.backgroundColor = "#2b2d42";
+  equalButton.style.borderColor = "#2b2d42";
+};
+
+const orangeColor = function () {
+  allCircles.forEach((circle) => circle.classList.remove("active"));
+  orange.classList.add("active");
+
+  calculatorBox.style.backgroundColor = "#cccccc";
+  calculatorBox.style.borderColor = "#f18805";
+
+  calculatorDisplay.style.borderColor = "#f18805";
+
+  basicButton.forEach((button) => (button.style.backgroundColor = "#f18805"));
+  basicButton.forEach((button) => (button.style.borderColor = "#f18805"));
+
+  equalButton.style.backgroundColor = "#f18805";
+  equalButton.style.borderColor = "#f18805";
+};
 
 // Event listeners
-document.querySelector(".pink").addEventListener("click", pinkColor);
-document.querySelector(".def").addEventListener("click", defaultColor);
+maroon.addEventListener("click", maroonColor);
+chocolate.addEventListener("click", chocolateColor);
+orange.addEventListener("click", orangeColor);
+dark.addEventListener("click", darkColor);
