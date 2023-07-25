@@ -7,9 +7,9 @@
 
 .modes {
   position: fixed;
-  top: 2%;
+  top: 10px;
   left: 50%;
-  transform:translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
 
 .mode-title {
@@ -23,29 +23,36 @@
   border-radius: 50%;
   margin: 0 5px;
 }
-.def {
-  background-color: #999999;
+
+.active,
+.circle:hover {
+  width: 20px;
+  height: 20px;
 }
 
-.pink {
-  background-color: #faa5c4;
+.chocolate {
+  background-color: #4d3227;
 }
 
-.green {
-  background-color: #6fca56;
+.maroon {
+  background-color: #993441;
 }
 
-.blue {
-  background-color: #435bf7;
+.orange {
+  background-color: #f18805;
+}
+
+.dark {
+  background-color: #2b2d42;
 }
 
 .calculator-box {
-  background-color: #b5f18f;
-  border: 2px solid #20a802;
+  background-color: #ccc7bf;
+  border: 1px solid #2b2d42;
   width: 350px;
   height: 500px;
   position: fixed;
-  top: 10%;
+  top: 70px;
   left: 50%;
   transform: translate(-50%, 0);
   display: flex;
@@ -59,8 +66,9 @@
   height: 20%;
   display: flex;
   flex-direction: column;
-  background-color: #f0fbdb;
-  border: 1px solid #20a802;
+  background-color: #ffffff;
+  border: 1px solid #2b2d42;
+  color: #222222;
   margin: 4% 0;
   border-radius: 5px;
 }
@@ -88,10 +96,12 @@
 }
 
 .number-grid > div {
-  background-color: #6fca56;
-  border: 1px solid #20a802;
+  background-color: #2b2d42;
+  border: 1px solid #2b2d42;
   text-align: center;
   border-radius: 10px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .basic-buttons {
