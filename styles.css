@@ -12,16 +12,15 @@
   transform: translate(-50%, 0);
 }
 
-.mode-title {
+.mode-title, .circle {
   display: inline-block;
 }
 
 .circle {
-  display: inline-block;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 
 .active,
