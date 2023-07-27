@@ -1,3 +1,11 @@
+:root {
+  --calculator-box-color: #ccc7bf;
+  --display-color: #ffffff;
+  --button-border-color: #2b2d42;
+  --number-border-color: #2b2d42;
+  --hover-border: #ffffff;
+}
+
 * {
   box-sizing: border-box;
   font-size: 25px;
@@ -12,7 +20,8 @@
   transform: translate(-50%, 0);
 }
 
-.mode-title, .circle {
+.mode-title,
+.circle {
   display: inline-block;
 }
 
@@ -20,7 +29,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .active,
@@ -46,8 +55,8 @@
 }
 
 .calculator-box {
-  background-color: #ccc7bf;
-  border: 1px solid #2b2d42;
+  background-color: var(--calculator-box-color);
+  border: 1px solid var(--button-border-color);
   width: 350px;
   height: 500px;
   position: fixed;
@@ -65,23 +74,22 @@
   height: 20%;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #2b2d42;
+  background-color: var(--display-color);
+  border: 1px solid var(--button-border-color);
   color: #222222;
   margin: 4% 0;
   border-radius: 5px;
+  padding: 10px 10px 5px 10px;
 }
 
 .input {
   height: 50%;
   text-align: left;
-  padding: 10px;
 }
 
 .output {
   height: 50%;
   text-align: right;
-  padding: 10px;
 }
 
 .number-grid {
@@ -95,8 +103,8 @@
 }
 
 .number-grid > div {
-  background-color: #2b2d42;
-  border: 1px solid #2b2d42;
+  background-color: var(--button-border-color);
+  border: 3px solid var(--number-border-color);
   text-align: center;
   border-radius: 10px;
   color: #ffffff;
@@ -111,4 +119,8 @@
   grid-column-start: 4;
   grid-row: 4 / 6;
   padding: 48px 0;
+}
+
+.number-grid > div:hover {
+  border-color: #ffffff;
 }
