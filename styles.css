@@ -1,62 +1,78 @@
 :root {
-  --calculator-box-color: #ccc7bf;
-  --display-color: #ffffff;
-  --button-border-color: #2b2d42;
-  --number-border-color: #2b2d42;
-  --hover-border: #ffffff;
+  --white-color: #ffffff;
+  --black-color: #222222;
+  --mode1-box-color: #ccc7bf;
+  --mode1-main-color: #2b2d42;
+  --mode2-box-color: #ebc999;
+  --mode2-main-color: #4d3227;
+  --mode3-box-color: #ffb8b1;
+  --mode3-main-color: #993441;
+  --mode4-box-color: #cccccc;
+  --mode4-main-color: #f18805;
 }
 
 * {
   box-sizing: border-box;
-  font-size: 25px;
   font-family: "Lucida Sans", "Lucida Sans Regular";
-  font-weight: 400;
+  font-size: 25px;
 }
 
 .modes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* justify-items: center; */
+  width: 350px;
   position: fixed;
-  top: 10px;
+  top: 30px;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.mode-title,
-.circle {
-  display: inline-block;
+.mode-title {
+  padding-right: 10px;
 }
 
 .circle {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   margin: 0 5px;
 }
 
-.active,
+.active {
+  width: 25px;
+  height: 25px;
+}
+
 .circle:hover {
-  width: 20px;
-  height: 20px;
-}
-
-.chocolate {
-  background-color: #4d3227;
-}
-
-.maroon {
-  background-color: #993441;
-}
-
-.orange {
-  background-color: #f18805;
+  border: 2px solid var(--white-color);
 }
 
 .dark {
-  background-color: #2b2d42;
+  background-color: var(--mode1-main-color);
+  border: 2px solid var(--mode1-main-color);
+}
+
+.chocolate {
+  background-color: var(--mode2-main-color);
+  border: 2px solid var(--mode2-main-color);
+}
+
+.maroon {
+  background-color: var(--mode3-main-color);
+  border: 2px solid var(--mode3-main-color);
+}
+
+.orange {
+  background-color: var(--mode4-main-color);
+  border: 2px solid var(--mode4-main-color);
 }
 
 .calculator-box {
-  background-color: var(--calculator-box-color);
-  border: 1px solid var(--button-border-color);
+  background-color: var(--mode1-box-color);
+  border: 1px solid var(--mode1-main-color);
   width: 350px;
   height: 500px;
   position: fixed;
@@ -74,22 +90,33 @@
   height: 20%;
   display: flex;
   flex-direction: column;
-  background-color: var(--display-color);
-  border: 1px solid var(--button-border-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--mode1-main-color);
   color: #222222;
-  margin: 4% 0;
+  margin: 10px 0;
   border-radius: 5px;
-  padding: 10px 10px 5px 10px;
+  /* padding: 10px 10px 10px 10px; */
+  /* direction: ltr; */
 }
 
 .input {
   height: 50%;
-  text-align: left;
+  display: flex;
+  justify-content: flex-end;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 10px;
+  /* text-align: left; */
+  /* display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  direction: ltr; */
 }
 
 .output {
-  height: 50%;
-  text-align: right;
+  /* height: 50%; */
+  text-align: left;
+  margin: 10px;
 }
 
 .number-grid {
@@ -103,11 +130,11 @@
 }
 
 .number-grid > div {
-  background-color: var(--button-border-color);
-  border: 3px solid var(--number-border-color);
+  background-color: var(--mode1-main-color);
+  border: 3px solid var(--mode1-main-color);
   text-align: center;
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--white-color);
   font-weight: 600;
 }
 
@@ -122,5 +149,5 @@
 }
 
 .number-grid > div:hover {
-  border-color: #ffffff;
+  border-color: var(--white-color);
 }
