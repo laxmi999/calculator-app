@@ -11,10 +11,9 @@ const allCircles = document.querySelectorAll(".circle");
 const calculatorBox = document.querySelector(".calculator-box");
 const calculatorDisplay = document.querySelector(".display");
 const basicButton = document.querySelectorAll(".basic-buttons");
-const equalButton = document.querySelector(".button-equal");
 
 const buttonNumbers = document.querySelectorAll(".number");
-const buttonEqual = document.querySelectorAll(".button-equal");
+const buttonEqual = document.querySelector(".equal-button");
 const buttonOperators = document.querySelectorAll(".operator");
 const buttonDelete = document.querySelector(".delete");
 const buttonAllClear = document.querySelector(".all-clear");
@@ -34,10 +33,10 @@ const onHover = function (color) {
       btn.style.borderColor = color;
     });
   });
-  equalButton.addEventListener("mouseenter", function () {
-    equalButton.style.borderColor = "#ffffff";
-    equalButton.addEventListener("mouseleave", function () {
-      equalButton.style.borderColor = color;
+  buttonEqual.addEventListener("mouseenter", function () {
+    buttonEqual.style.borderColor = "#ffffff";
+    buttonEqual.addEventListener("mouseleave", function () {
+      buttonEqual.style.borderColor = color;
     });
   });
 };
@@ -52,8 +51,8 @@ const colorMode = function (boxColor, mainColor) {
   basicButton.forEach((button) => (button.style.backgroundColor = mainColor));
   basicButton.forEach((button) => (button.style.borderColor = mainColor));
 
-  equalButton.style.backgroundColor = mainColor;
-  equalButton.style.borderColor = mainColor;
+  buttonEqual.style.backgroundColor = mainColor;
+  buttonEqual.style.borderColor = mainColor;
 };
 
 // Color changing functions
@@ -61,10 +60,7 @@ const darkColor = function () {
   allCircles.forEach((circle) => circle.classList.remove("active"));
   dark.classList.add("active");
 
-  // Changing color mode
   colorMode("var(--mode1-box-color)", "var(--mode1-main-color)");
-
-  // Hover effect
   onHover("var(--mode1-main-color)");
 };
 
@@ -72,10 +68,7 @@ const chocolateColor = function () {
   allCircles.forEach((circle) => circle.classList.remove("active"));
   chocolate.classList.add("active");
 
-  // Changing color mode
   colorMode("var(--mode2-box-color)", "var(--mode2-main-color)");
-
-  // Hover effect
   onHover("var(--mode2-main-color)");
 };
 
@@ -83,10 +76,7 @@ const maroonColor = function () {
   allCircles.forEach((circle) => circle.classList.remove("active"));
   maroon.classList.add("active");
 
-  // Changing color mode
   colorMode("var(--mode3-box-color)", "var(--mode3-main-color)");
-
-  // Hover effect
   onHover("var(--mode3-main-color)");
 };
 
@@ -94,10 +84,7 @@ const orangeColor = function () {
   allCircles.forEach((circle) => circle.classList.remove("active"));
   orange.classList.add("active");
 
-  // Changing color mode
   colorMode("var(--mode4-box-color)", "var(--mode4-main-color)");
-
-  // Hover effect
   onHover("var(--mode4-main-color)");
 };
 
@@ -108,36 +95,90 @@ orange.addEventListener("click", orangeColor);
 dark.addEventListener("click", darkColor);
 
 // Calculation operations
-// buttonAll = [...numberGrid.children];
+let ipString = "";
 
-const displayInput = function (digit) {
-  const ip = input.textContent === "0" ? digit : input.textContent + digit;
-  input.textContent = ip;
+const switchSymbol = function (operator) {
+  switch (operator) {
+    case "%":
+      return "%";
+    case "÷":
+      return "/";
+    case "×":
+      return "*";
+    case "−":
+      return "-";
+    case "+":
+      return "+";
+    case ".":
+      return ".";
+  }
+};
+
+const displayNumber = function (keyValue) {
+  input.innerText === "0"
+    ? (input.innerText = keyValue)
+    : (input.innerText += keyValue);
+  input.innerText;
+  ipString += keyValue;
+};
+
+const displayOperator = function (keyValue) {
+  input.innerText === "0"
+    ? (input.innerText = keyValue)
+    : (input.innerText += keyValue);
+  ipString += switchSymbol(keyValue);
+};
+
+const changeSymbolOnDisplay = function (symbol) {
+  if (symbol === "/") return "÷";
+  if (symbol === "*") return "×";
+};
+
+const displayOutput = function (inputStr) {
+  const outputOnDisplay = eval(inputStr);
+  output.innerText = outputOnDisplay;
 };
 
 const deleteButton = function () {
-  const ip = String(input.textContent).slice(0, -1);
-  input.textContent = ip;
+  const ip = String(input.innerText).slice(0, -1);
+  if (input.innerText != "") {
+    input.innerText = ip;
+    ipString = ipString.slice(0, -1);
+  } else {
+    input.innerText = "0";
+  }
+  output.innerText = "0";
 };
 
 numberGrid.addEventListener("click", function (e) {
-  if (
-    e.target.classList.contains("number") ||
-    e.target.classList.contains("operator")
-  ) {
-    displayInput(e.target.textContent);
+  if (e.target.classList.contains("number")) displayNumber(e.target.innerText);
+
+  if (e.target.classList.contains("operator")) {
+    displayOperator(e.target.innerText);
   }
 
   if (e.target.classList.contains("delete")) deleteButton();
 
   if (e.target.classList.contains("all-clear")) {
-    input.textContent = "0";
-    output.textContent = "0";
+    input.innerText = "0";
+    output.innerText = "0";
+    ipString = "";
   }
+  console.log(ipString);
 });
 
 window.addEventListener("keydown", function (e) {
-  console.log(e.key);
-  if (Number(e.key)) displayInput(e.key);
+  if (Number(e.key)) displayNumber(e.key);
+  if (e.key === "%" || e.key === "-" || e.key === "+" || e.key === ".")
+    displayOperator(e.key);
+  if (e.key === "/" || e.key === "*") {
+    const changedSymbol = changeSymbolOnDisplay(e.key);
+    displayOperator(changedSymbol);
+  }
   if (e.key === "Backspace") deleteButton();
+  if (e.key === "=") displayOutput(ipString);
+});
+
+buttonEqual.addEventListener("click", function () {
+  if (input.innerText != 0) displayOutput(ipString);
 });
