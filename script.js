@@ -96,6 +96,17 @@ dark.addEventListener("click", darkColor);
 
 // Calculation operations
 let ipString = "";
+let opString = "";
+let outputActive = false;
+
+const checkOutputActive = function () {
+  if (outputActive === true) {
+    input.innerText = "";
+    input.innerText = ipString;
+    outputActive = false;
+    output.innerText = "0";
+  }
+};
 
 const switchSymbol = function (operator) {
   switch (operator) {
@@ -115,18 +126,34 @@ const switchSymbol = function (operator) {
 };
 
 const displayNumber = function (keyValue) {
-  input.innerText === "0"
-    ? (input.innerText = keyValue)
-    : (input.innerText += keyValue);
-  input.innerText;
+  if (input.innerText === "0") {
+    input.innerText = keyValue;
+  } else {
+    checkOutputActive();
+    input.innerText += keyValue;
+  }
+  // input.innerText;
   ipString += keyValue;
 };
 
 const displayOperator = function (keyValue) {
-  input.innerText === "0"
-    ? (input.innerText = keyValue)
-    : (input.innerText += keyValue);
-  ipString += switchSymbol(keyValue);
+  let ip = input.innerText;
+  if (ip === "0") {
+    input.innerText = keyValue;
+    ipString += switchSymbol(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "+") {
+    if (keyValue === "−" || keyValue === "+") {
+      input.innerText += "";
+    }
+  } else if (ip.charAt(ip.length - 1) === "−") {
+    if (keyValue === "−" || keyValue === "+") {
+      input.innerText += "";
+    }
+  } else {
+    checkOutputActive();
+    input.innerText += keyValue;
+    ipString += switchSymbol(keyValue);
+  }
 };
 
 const changeSymbolOnDisplay = function (symbol) {
@@ -137,6 +164,8 @@ const changeSymbolOnDisplay = function (symbol) {
 const displayOutput = function (inputStr) {
   const outputOnDisplay = eval(inputStr);
   output.innerText = outputOnDisplay;
+  outputActive = true;
+  ipString = "";
 };
 
 const deleteButton = function () {
@@ -164,7 +193,13 @@ numberGrid.addEventListener("click", function (e) {
     output.innerText = "0";
     ipString = "";
   }
-  console.log(ipString);
+});
+
+// Displaying output
+buttonEqual.addEventListener("click", function () {
+  if (ipString != 0) {
+    displayOutput(ipString);
+  }
 });
 
 window.addEventListener("keydown", function (e) {
@@ -177,8 +212,4 @@ window.addEventListener("keydown", function (e) {
   }
   if (e.key === "Backspace") deleteButton();
   if (e.key === "=") displayOutput(ipString);
-});
-
-buttonEqual.addEventListener("click", function () {
-  if (input.innerText != 0) displayOutput(ipString);
 });
