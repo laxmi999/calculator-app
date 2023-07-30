@@ -132,8 +132,8 @@ const displayNumber = function (keyValue) {
     checkOutputActive();
     input.innerText += keyValue;
   }
-  // input.innerText;
   ipString += keyValue;
+  console.log(ipString);
 };
 
 const displayOperator = function (keyValue) {
@@ -154,6 +154,7 @@ const displayOperator = function (keyValue) {
     input.innerText += keyValue;
     ipString += switchSymbol(keyValue);
   }
+  console.log(ipString);
 };
 
 const changeSymbolOnDisplay = function (symbol) {
@@ -169,9 +170,9 @@ const displayOutput = function (inputStr) {
 };
 
 const deleteButton = function () {
-  const ip = String(input.innerText).slice(0, -1);
+  let ip = String(input.innerText);
   if (input.innerText != "") {
-    input.innerText = ip;
+    input.innerText = ip.slice(0, -1);
     ipString = ipString.slice(0, -1);
   } else {
     input.innerText = "0";
