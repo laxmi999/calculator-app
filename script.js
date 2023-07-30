@@ -142,11 +142,23 @@ const displayOperator = function (keyValue) {
     input.innerText = keyValue;
     ipString += switchSymbol(keyValue);
   } else if (ip.charAt(ip.length - 1) === "+") {
-    if (keyValue === "−" || keyValue === "+") {
+    if (keyValue === "−") {
+      input.innerText = ip.slice(0, -1);
+      ipString = ipString.slice(0, -1);
+      input.innerText += "−";
+      ipString += switchSymbol(keyValue);
+    }
+    if (keyValue === "+") {
       input.innerText += "";
     }
   } else if (ip.charAt(ip.length - 1) === "−") {
-    if (keyValue === "−" || keyValue === "+") {
+    if (keyValue === "+") {
+      input.innerText = ip.slice(0, -1);
+      ipString = ipString.slice(0, -1);
+      input.innerText += "+";
+      ipString += switchSymbol(keyValue);
+    }
+    if (keyValue === "−") {
       input.innerText += "";
     }
   } else {
