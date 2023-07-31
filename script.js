@@ -96,8 +96,18 @@ dark.addEventListener("click", darkColor);
 
 // Calculation operations
 let ipString = "";
-let opString = "";
 let outputActive = false;
+let dotActive = false;
+
+const checkDotActive = function () {
+  if (dotActive === false) {
+    input.innerText += ".";
+    ipString += ".";
+    dotActive = true;
+  } else {
+    ipString += "";
+  }
+};
 
 const checkOutputActive = function () {
   if (outputActive === true) {
@@ -111,7 +121,7 @@ const checkOutputActive = function () {
 const switchSymbol = function (operator) {
   switch (operator) {
     case "%":
-      return "%";
+      return "/ 100"; // n% of 100
     case "÷":
       return "/";
     case "×":
@@ -133,7 +143,6 @@ const displayNumber = function (keyValue) {
     input.innerText += keyValue;
   }
   ipString += keyValue;
-  console.log(ipString);
 };
 
 const displayOperator = function (keyValue) {
@@ -141,30 +150,34 @@ const displayOperator = function (keyValue) {
   if (ip === "0") {
     input.innerText = keyValue;
     ipString += switchSymbol(keyValue);
+    dotActive = false;
+  } else if (keyValue === ".") {
+    checkDotActive();
   } else if (ip.charAt(ip.length - 1) === "+") {
     if (keyValue === "−") {
       input.innerText = ip.slice(0, -1);
       ipString = ipString.slice(0, -1);
       input.innerText += "−";
       ipString += switchSymbol(keyValue);
-    }
-    if (keyValue === "+") {
+    } else if (keyValue === "+") {
       input.innerText += "";
     }
+    dotActive = false;
   } else if (ip.charAt(ip.length - 1) === "−") {
     if (keyValue === "+") {
       input.innerText = ip.slice(0, -1);
       ipString = ipString.slice(0, -1);
       input.innerText += "+";
       ipString += switchSymbol(keyValue);
-    }
-    if (keyValue === "−") {
+    } else if (keyValue === "−") {
       input.innerText += "";
     }
+    dotActive = false;
   } else {
     checkOutputActive();
     input.innerText += keyValue;
     ipString += switchSymbol(keyValue);
+    dotActive = false;
   }
   console.log(ipString);
 };
@@ -172,6 +185,7 @@ const displayOperator = function (keyValue) {
 const changeSymbolOnDisplay = function (symbol) {
   if (symbol === "/") return "÷";
   if (symbol === "*") return "×";
+  if (symbol === "-") return "−";
 };
 
 const displayOutput = function (inputStr) {
@@ -179,6 +193,7 @@ const displayOutput = function (inputStr) {
   output.innerText = outputOnDisplay;
   outputActive = true;
   ipString = "";
+  dotActive = false;
 };
 
 const deleteButton = function () {
@@ -190,6 +205,7 @@ const deleteButton = function () {
     input.innerText = "0";
   }
   output.innerText = "0";
+  dotActive = false;
 };
 
 numberGrid.addEventListener("click", function (e) {
@@ -205,6 +221,7 @@ numberGrid.addEventListener("click", function (e) {
     input.innerText = "0";
     output.innerText = "0";
     ipString = "";
+    dotActive = false;
   }
 });
 
@@ -217,9 +234,8 @@ buttonEqual.addEventListener("click", function () {
 
 window.addEventListener("keydown", function (e) {
   if (Number(e.key)) displayNumber(e.key);
-  if (e.key === "%" || e.key === "-" || e.key === "+" || e.key === ".")
-    displayOperator(e.key);
-  if (e.key === "/" || e.key === "*") {
+  if (e.key === "%" || e.key === "+" || e.key === ".") displayOperator(e.key);
+  if (e.key === "/" || e.key === "*" || e.key === "-") {
     const changedSymbol = changeSymbolOnDisplay(e.key);
     displayOperator(changedSymbol);
   }
