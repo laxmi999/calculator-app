@@ -5,21 +5,15 @@ const maroon = document.querySelector(".maroon");
 const chocolate = document.querySelector(".chocolate");
 const orange = document.querySelector(".orange");
 const dark = document.querySelector(".dark");
-
 const allCircles = document.querySelectorAll(".circle");
 
 const calculatorBox = document.querySelector(".calculator-box");
 const calculatorDisplay = document.querySelector(".display");
 const basicButton = document.querySelectorAll(".basic-buttons");
 
-const buttonNumbers = document.querySelectorAll(".number");
 const buttonEqual = document.querySelector(".equal-button");
-const buttonOperators = document.querySelectorAll(".operator");
-const buttonDelete = document.querySelector(".delete");
-const buttonAllClear = document.querySelector(".all-clear");
 const numberGrid = document.querySelector(".number-grid");
 
-const display = document.querySelector(".display");
 const input = document.querySelector(".input");
 const output = document.querySelector(".output");
 
@@ -95,33 +89,14 @@ orange.addEventListener("click", orangeColor);
 dark.addEventListener("click", darkColor);
 
 // Calculation operations
-let ipString = "";
+let ipString = "0";
 let outputActive = false;
 let dotActive = false;
-
-const checkDotActive = function () {
-  if (dotActive === false) {
-    input.innerText += ".";
-    ipString += ".";
-    dotActive = true;
-  } else {
-    ipString += "";
-  }
-};
-
-const checkOutputActive = function () {
-  if (outputActive === true) {
-    input.innerText = "";
-    input.innerText = ipString;
-    outputActive = false;
-    output.innerText = "0";
-  }
-};
 
 const switchSymbol = function (operator) {
   switch (operator) {
     case "%":
-      return "/ 100"; // n% of 100
+      return "/100";
     case "÷":
       return "/";
     case "×":
@@ -135,48 +110,146 @@ const switchSymbol = function (operator) {
   }
 };
 
+const slicing = function () {
+  ip = input.innerText;
+  input.innerText = ip.slice(0, -1);
+  ipString = ipString.slice(0, -1);
+};
+
+const appendingOperator = function (keyValue) {
+  input.innerText += keyValue;
+  ipString += switchSymbol(keyValue);
+};
+
+const isPlus = function (keyValue) {
+  let ip = input.innerText;
+  if (ip === "0") {
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "−") {
+    slicing();
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "+") {
+  } else {
+    appendingOperator(keyValue);
+  }
+};
+
+const isMinus = function (keyValue) {
+  let ip = input.innerText;
+  if (ip === "0") {
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "+") {
+    slicing();
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "−") {
+  } else {
+    appendingOperator(keyValue);
+  }
+};
+
+const isMultiply = function (keyValue) {
+  let ip = input.innerText;
+  if (ip === "0") {
+    appendingOperator(keyValue);
+  } else if (
+    ip.charAt(ip.length - 1) === "−" ||
+    ip.charAt(ip.length - 1) === "+" ||
+    ip.charAt(ip.length - 1) === "÷"
+  ) {
+    slicing();
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "×") {
+  } else {
+    appendingOperator(keyValue);
+  }
+};
+
+const isDivide = function (keyValue) {
+  let ip = input.innerText;
+  if (ip === "0") {
+    appendingOperator(keyValue);
+  } else if (
+    ip.charAt(ip.length - 1) === "−" ||
+    ip.charAt(ip.length - 1) === "+" ||
+    ip.charAt(ip.length - 1) === "×"
+  ) {
+    slicing();
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "÷") {
+  } else {
+    appendingOperator(keyValue);
+  }
+};
+
+const isPercentage = function (keyValue) {
+  let ip = input.innerText;
+  if (ip === "0") {
+    appendingOperator(keyValue);
+  } else if (
+    ip.charAt(ip.length - 1) === "−" ||
+    ip.charAt(ip.length - 1) === "+" ||
+    ip.charAt(ip.length - 1) === "÷" ||
+    ip.charAt(ip.length - 1) === "×"
+  ) {
+    slicing();
+    appendingOperator(keyValue);
+  } else if (ip.charAt(ip.length - 1) === "%") {
+  } else {
+    appendingOperator(keyValue);
+  }
+};
+
+const isDot = function (keyValue) {
+  let ip = input.innerText;
+  if (dotActive === false) {
+    if (ip === "0") {
+      input.innerText += keyValue;
+      ipString = switchSymbol(keyValue);
+      dotActive = true;
+    } else {
+      appendingOperator(keyValue);
+      dotActive = true;
+    }
+  }
+};
+
+const checkOutputActive = function () {
+  if (outputActive === true) {
+    input.innerText = "";
+  }
+  outputActive = false;
+};
+
 const displayNumber = function (keyValue) {
   if (input.innerText === "0") {
     input.innerText = keyValue;
+    ipString = keyValue;
   } else {
     checkOutputActive();
     input.innerText += keyValue;
+    ipString += keyValue;
   }
-  ipString += keyValue;
+  console.log(ipString);
 };
 
 const displayOperator = function (keyValue) {
-  let ip = input.innerText;
-  if (ip === "0") {
-    input.innerText = keyValue;
-    ipString += switchSymbol(keyValue);
+  checkOutputActive();
+  if (keyValue === ".") {
+    isDot(keyValue);
+  } else if (keyValue === "+") {
+    isPlus("+");
     dotActive = false;
-  } else if (keyValue === ".") {
-    checkDotActive();
-  } else if (ip.charAt(ip.length - 1) === "+") {
-    if (keyValue === "−") {
-      input.innerText = ip.slice(0, -1);
-      ipString = ipString.slice(0, -1);
-      input.innerText += "−";
-      ipString += switchSymbol(keyValue);
-    } else if (keyValue === "+") {
-      input.innerText += "";
-    }
+  } else if (keyValue === "−") {
+    isMinus("−");
     dotActive = false;
-  } else if (ip.charAt(ip.length - 1) === "−") {
-    if (keyValue === "+") {
-      input.innerText = ip.slice(0, -1);
-      ipString = ipString.slice(0, -1);
-      input.innerText += "+";
-      ipString += switchSymbol(keyValue);
-    } else if (keyValue === "−") {
-      input.innerText += "";
-    }
+  } else if (keyValue === "×") {
+    isMultiply("×");
     dotActive = false;
-  } else {
-    checkOutputActive();
-    input.innerText += keyValue;
-    ipString += switchSymbol(keyValue);
+  } else if (keyValue === "÷") {
+    isDivide("÷");
+    dotActive = false;
+  } else if (keyValue === "%") {
+    isPercentage("%");
     dotActive = false;
   }
   console.log(ipString);
@@ -189,8 +262,10 @@ const changeSymbolOnDisplay = function (symbol) {
 };
 
 const displayOutput = function (inputStr) {
-  const outputOnDisplay = eval(inputStr);
-  output.innerText = outputOnDisplay;
+  const op = String(eval(inputStr));
+  output.innerText = op.includes("-")
+    ? op.replace("-", changeSymbolOnDisplay("-"))
+    : op;
   outputActive = true;
   ipString = "";
   dotActive = false;
@@ -198,14 +273,20 @@ const displayOutput = function (inputStr) {
 
 const deleteButton = function () {
   let ip = String(input.innerText);
-  if (input.innerText != "") {
+  if (ip.charAt(ip.length - 1) === ".") {
+    slicing();
+    dotActive = false;
+  } else if (ip.charAt(ip.length - 1) === "%") {
+    ip = input.innerText;
     input.innerText = ip.slice(0, -1);
-    ipString = ipString.slice(0, -1);
+    ipString = ipString.slice(0, -4);
   } else {
+    slicing();
+  }
+  if (input.innerText === "") {
     input.innerText = "0";
   }
   output.innerText = "0";
-  dotActive = false;
 };
 
 numberGrid.addEventListener("click", function (e) {
