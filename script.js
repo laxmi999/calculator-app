@@ -287,6 +287,7 @@ const deleteButton = function () {
     input.innerText = "0";
   }
   output.innerText = "0";
+  console.log(ipString);
 };
 
 numberGrid.addEventListener("click", function (e) {
@@ -301,13 +302,14 @@ numberGrid.addEventListener("click", function (e) {
   if (e.target.classList.contains("all-clear")) {
     input.innerText = "0";
     output.innerText = "0";
-    ipString = "";
+    ipString = "0";
     dotActive = false;
   }
 });
 
 // Displaying output
 buttonEqual.addEventListener("click", function () {
+  console.log(ipString);
   if (ipString != 0) {
     displayOutput(ipString);
   }
